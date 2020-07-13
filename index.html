@@ -5,7 +5,20 @@
         <title>Circuiti RC</title>
     </head>
     <body>
-        
+        <!-- include MATHJAX script -->
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+              }
+            };
+        </script>
+        <script id="MathJax-script" async
+              src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+        </script>
+
         <!-- HEADER SECTION -->
         <div class="header">
             <h1>Circuiti RC</h1>
@@ -33,7 +46,7 @@
                 <div id="cosasono">
                     <h3>Cosa sono?</h3>
                     <img class="imgTeoria" src="./img/circuitoRC.png" alt="circuito RC" > 
-                    <p id="p1">
+                    <p class="p1">
                         Fino ad ora abbiamo utilizzato circuiti in condizioni 
                         stazionarie, ovvero le cui grandezze fondamentali 
                         (correnti, d.d.p., carica dei condensatori ) non 
@@ -77,11 +90,23 @@
                 <div id="caricacondensatore">
                     <h3>Processo di carica del condensatore</h3>
                     <img class="imgTeoria" src="./img/circuitoRC2.png" alt="circuito RC in carica">
-                    <div>
+                    <div class="p1">
                         In ogni istante del processo di carica, come nel caso statico 
                         le equazioni della corrente sono date dalle leggi di Kirchoff. 
                         La differenza è che in questo caso le grandezze sono variabili 
-                        nel tempo.
+                        nel tempo.<br/>
+                        Sia $q(t)$ la carica, $\Delta V_c(t)$ la d.d.p ai piatti del 
+                        condensatore, e $i(t)$ la corrente nel circuito. Si ha: 
+                        $$fem = i(t)R + \Delta V_c(t)$$
+                        La carica del condensatore continua fino a quando la  
+                        $\Delta V_c$ diventa uguale alla $fem$ del circuito.
+                    </div>
+                    <div class="p1">
+                        Riscriviamo la equazione sostituendo $\Delta V_c(t)$ e $i(t)$ 
+                        con la loro espressione in termini di carica:
+                        $$i(t) = \frac{d q(t)}{dt}$$
+                        $$\Delta V_c(t) = \frac{q(t)}{C}$ $$
+                        $$\frac{dq(t)}{dt}R+\frac{q(t)}{C} = fem $$
                     </div>
                 </div>             
 
