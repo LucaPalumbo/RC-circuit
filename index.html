@@ -2,6 +2,8 @@
 <html>
     <head>
         <link rel = "stylesheet" type = "text/css" href = "./css/myStyle.css" />
+        <link rel = "stylesheet" type = "text/css" href = "./css/collapsible.css" />
+        <link rel = "stylesheet" type = "text/css" href = "./css/sidenav.css" />
         <title>Circuiti RC</title>
     </head>
     <body>
@@ -106,10 +108,26 @@
                         con la loro espressione in termini di carica:
                         $$i(t) = \frac{d q(t)}{dt}$$
                         $$\Delta V_c(t) = \frac{q(t)}{C}$ $$
-                        $$\frac{dq(t)}{dt}R+\frac{q(t)}{C} = fem $$
+                        $$\frac{dq(t)}{dt}R+\frac{q(t)}{C} = fem \hspace{1cm}(1)$$
                         Otteniamo un'equazione differenziale del 1° ordine che 
                         descrive la variazione di carica ai piatti del condensatore.
                     </div>
+                    <button class="collapsible">Svolgimento equazione</button>
+                    <div class="content">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                    <div class="p1">
+                        Una volta risolta l'equazione otteniamo: $$ q(t) = C  fem[1-e^{-t/\tau}] $$
+                        Quindi l'intensit&agrave; di corrente corrisponder&agrave; a:
+                        $$ i(t) = \frac{dq}{dt} = \frac{C fem}{\tau}e^{-t/\tau} $$
+                        Sostituiamo le espressioni della carica e della corrente nella equazione 
+                        $(1)$ e verifichiamo per quale valore di $\tau$ l'equazione &egrave; 
+                        soddisfatta.
+                        $$ \frac{RCfem}{\tau}e^{-t/\tau}+fem[1-e^{-t/\tau}] = fem  $$ 
+                        $$ \frac{RC}{\tau}e^{-t/\tau}-e^{-t/\tau} = 0 $$
+                        $$ \tau = RC $$ 
+                    </div>
+                            
                 </div>             
 
                 
@@ -153,6 +171,22 @@
 
             // Get the element with id="defaultOpen" and click on it
             document.getElementById("defaultOpen").click();
+        </script>
+        <script>
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
+            
+            for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight){
+                content.style.maxHeight = null;
+                } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                } 
+            });
+            }
         </script>
    
     </body>
