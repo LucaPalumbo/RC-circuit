@@ -26,7 +26,7 @@
             <h1>Circuiti RC</h1>
             <p>by Luca Palumbo</p>
         </div>
-        
+
         <!-- CONTENT SECTION -->
         <button class="tablink" onclick="openPage('circuitiRC', this)" id="defaultOpen">Circuiti RC</button>
         <button class="tablink" onclick="openPage('News', this)">News</button>
@@ -36,7 +36,7 @@
         <div id="circuitiRC" class="tabcontent" >
             <div class='subContainer'>
                 <h2 class='subTitle'>Spiegazione e teoria</h2>
-                
+
                 <!-- SIDEBAR SECCTION -->
                 <div class="sidenav">
                     <div>Indice:</div>
@@ -47,19 +47,19 @@
                 </div>
                 <div id="cosasono">
                     <h3>Cosa sono?</h3>
-                    <img class="imgTeoria" src="./img/circuitoRC.png" alt="circuito RC" > 
+                    <img class="imgTeoria" src="./img/circuitoRC.png" alt="circuito RC" >
                     <p class="p1">
-                        Fino ad ora abbiamo utilizzato circuiti in condizioni 
-                        stazionarie, ovvero le cui grandezze fondamentali 
-                        (correnti, d.d.p., carica dei condensatori ) non 
-                        variano nel tempo. Un circuito RC &egrave; un esempio 
+                        Fino ad ora abbiamo utilizzato circuiti in condizioni
+                        stazionarie, ovvero le cui grandezze fondamentali
+                        (correnti, d.d.p., carica dei condensatori ) non
+                        variano nel tempo. Un circuito RC &egrave; un esempio
                         di circuiti non stazionario. <br/>
-                        Il circuito RC contiene, oltre a una batteria o 
-                        generatore di tensione, una o pi&ugrave; resistenze e 
+                        Il circuito RC contiene, oltre a una batteria o
+                        generatore di tensione, una o pi&ugrave; resistenze e
                         uno o pi&ugrave; condensatori.
                         Consideriamo il condensatore inizialmente scarico. <br/>
-                        Attraverso l'interruttore S possiamo mettere in contatto 
-                        il condensatore con la batteria.                    
+                        Attraverso l'interruttore S possiamo mettere in contatto
+                        il condensatore con la batteria.
                     </p>
                     <br/>
                     <br/>
@@ -67,24 +67,24 @@
                     <div id="p2">
                         <ul id="fasi">
                             <li>
-                                <strong>Fase di Carica:</strong> mettiamo in contatto 
-                                l'interruttore S col punto a. La batteria inizia a 
+                                <strong>Fase di Carica:</strong> mettiamo in contatto
+                                l'interruttore S col punto a. La batteria inizia a
                                 trasferire carica al condensatore finche la d.d.p
-                                deltaV tra i piatti del condensatore non eguaglia la 
+                                deltaV tra i piatti del condensatore non eguaglia la
                                 f.e.m. della batteria.
                             </li>
                             <li>
-                                <strong>Condensatore totalmente carico:</strong> a 
-                                carica completata la corrente cessa: il condensatore 
+                                <strong>Condensatore totalmente carico:</strong> a
+                                carica completata la corrente cessa: il condensatore
                                 carico interrompe il flusso della corrente.
                             </li>
                             <li>
-                                <strong>Fase di scarica:</strong> scarichiamo il 
-                                condensatore collegando S col punto b: si genera 
-                                una corrente nella maglia chiysa che dissipa l'energia 
+                                <strong>Fase di scarica:</strong> scarichiamo il
+                                condensatore collegando S col punto b: si genera
+                                una corrente nella maglia chiysa che dissipa l'energia
                                 del condensatore sulla resistenza R.
                             </li>
-                        </ul>               
+                        </ul>
                     </div>
                 </div>
                 <br/>
@@ -93,53 +93,68 @@
                     <h3>Processo di carica del condensatore</h3>
                     <img class="imgTeoria" src="./img/circuitoRC2.png" alt="circuito RC in carica">
                     <div class="p1">
-                        In ogni istante del processo di carica, come nel caso statico 
-                        le equazioni della corrente sono date dalle leggi di Kirchoff. 
-                        La differenza è che in questo caso le grandezze sono variabili 
+                        In ogni istante del processo di carica, come nel caso statico
+                        le equazioni della corrente sono date dalle leggi di Kirchoff.
+                        La differenza è che in questo caso le grandezze sono variabili
                         nel tempo.<br/>
-                        Sia $q(t)$ la carica, $\Delta V_c(t)$ la d.d.p ai piatti del 
-                        condensatore, e $i(t)$ la corrente nel circuito. Si ha: 
+                        Sia $q(t)$ la carica, $\Delta V_c(t)$ la d.d.p ai piatti del
+                        condensatore, e $i(t)$ la corrente nel circuito. Si ha:
                         $$fem = i(t)R + \Delta V_c(t)$$
-                        La carica del condensatore continua fino a quando la  
+                        La carica del condensatore continua fino a quando la
                         $\Delta V_c$ diventa uguale alla $fem$ del circuito.
                     </div>
                     <div class="p1">
-                        Riscriviamo la equazione sostituendo $\Delta V_c(t)$ e $i(t)$ 
+                        Riscriviamo la equazione sostituendo $\Delta V_c(t)$ e $i(t)$
                         con la loro espressione in termini di carica:
                         $$i(t) = \frac{d q(t)}{dt}$$
-                        $$\Delta V_c(t) = \frac{q(t)}{C}$ $$
+                        $$\Delta V_c(t) = \frac{q(t)}{C} $$
                         $$\frac{dq(t)}{dt}R+\frac{q(t)}{C} = fem \hspace{1cm}(1)$$
-                        Otteniamo un'equazione differenziale del 1° ordine che 
+                        Otteniamo un'equazione differenziale del 1° ordine che
                         descrive la variazione di carica ai piatti del condensatore.
                     </div>
                     <button class="collapsible">Svolgimento equazione</button>
                     <div class="content">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                      <div class="p1">
+                        $$ \frac{dq}{dt}R+\frac{q}{C} = fem $$
+                        $$ \frac{dq}{dt}+\frac{q}{RC} = \frac{fem}{R} $$
+                        Quindi applico: $$ q(t)= e^{-A(t)}\Big[C_1+\int{\frac{fem}{R}\,e^{A(t)}\,dt}\Big] $$
+                        con: $$ A(t)= \int{\frac{1}{RC}\,dt} = \frac{t}{RC} $$
+                        Risolvo: $$ \int{\frac{fem}{R}e^{A(t)}\,dt} $$
+                        $$ \int{\frac{fem}{R}e^{\,t/RC}\,dt} $$
+                        $$ Cfem\int{\frac{1}{RC}e^{\,t/RC}\,dt} = Cfem\,e^{t/RC}$$
+                        Quindi:
+                        $$ q(t) = e^{-t/RC}\Big[C_1+Cfem\,e^{t/RC}\Big] $$
+                        $$ q(t) = C_1e^{-t/RC}+Cfem $$
+                        Conoscendo $ q(0) = 0$ ricavo:
+                        $$ C_1e^{0}+Cfem = 0 $$
+                        $$ C_1+Cfem = 0 $$
+                        $$ C_1=-Cfem $$
+                        Quindi:
+                        $$ q(t) = Cfem -Cfem\,e^{-t/RC} $$
+                        $$ q(t) = Cfem\Big[1-e^{-t/RC}\Big] $$
+                      </div>
                     </div>
                     <div class="p1">
-                        Una volta risolta l'equazione otteniamo: $$ q(t) = C  fem[1-e^{-t/\tau}] $$
+                        Una volta risolta l'equazione definiamo $\tau = RC$ ottenendo
+                        : $$ q(t) = C  fem[1-e^{-t/\tau}] $$
+                        $\tau$ prende il nome di <strong><font color ="#1abc9c" >costante
+                        di tempo caratteristica</font></strong> e ha come untià di
+                        misura i secondi.
+                        $$ \Big[RC\Big] =\Omega F= \frac{V}{A}\frac{C}{V} = \frac{C}{A} = s $$
                         Quindi l'intensit&agrave; di corrente corrisponder&agrave; a:
                         $$ i(t) = \frac{dq}{dt} = \frac{C fem}{\tau}e^{-t/\tau} $$
-                        Sostituiamo le espressioni della carica e della corrente nella equazione 
-                        $(1)$ e verifichiamo per quale valore di $\tau$ l'equazione &egrave; 
-                        soddisfatta.
-                        $$ \frac{RCfem}{\tau}e^{-t/\tau}+fem[1-e^{-t/\tau}] = fem  $$ 
-                        $$ \frac{RC}{\tau}e^{-t/\tau}-e^{-t/\tau} = 0 $$
-                        $$ \tau = RC $$ 
-                        $\tau$ &egrave; detta <strong>costante di tempo caratteristica</strong>, 
-                        ed infatti ha come unità di misura il secondo.
-                        $$[RC] = \frac{V}{A}\frac{C}{V} = \frac{C}{A} = s $$
-                    </div>
-                            
-                </div>             
 
-                
-            </div>        
+                    </div>
+
+                </div>
+
+
+            </div>
         </div>
 
         <div id="News" class="tabcontent">
             <h3>News</h3>
-            <p>Some news this fine day!</p> 
+            <p>Some news this fine day!</p>
         </div>
 
         <div id="Contact" class="tabcontent">
@@ -152,7 +167,7 @@
             <p>Who we are and what we do.</p>
         </div>
 
-        
+
 
 
         <!-- SCRIPT SECTION -->
@@ -178,7 +193,7 @@
         <script>
             var coll = document.getElementsByClassName("collapsible");
             var i;
-            
+
             for (i = 0; i < coll.length; i++) {
             coll[i].addEventListener("click", function() {
                 this.classList.toggle("active");
@@ -187,10 +202,10 @@
                 content.style.maxHeight = null;
                 } else {
                 content.style.maxHeight = content.scrollHeight + "px";
-                } 
+                }
             });
             }
         </script>
-   
+
     </body>
 </html>
