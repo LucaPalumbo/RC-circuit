@@ -37,6 +37,19 @@
   border: 0px solid;
 }
 
+.p3{
+  font-size: 18px;
+  padding: 0px 0px ;
+  text-align: justify;
+  border: 0px solid;
+  float: left;
+  width: 51%;
+}
+.box{
+  border: 0px dotted;
+  margin-bottom: 325px;
+}
+
 #fasi li{
   font-size: 18px;
   padding: 20px 16px;
@@ -75,7 +88,7 @@ body, html {
   color: black;
   display: none;
   padding: 100px 20px;
-  
+
 }
 
 #circuitiRC {
@@ -93,4 +106,3 @@ body, html {
 #News {background-color: white;}
 #Contact {background-color: white;}
 #About {background-color: white;}
-
