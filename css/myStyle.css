@@ -8,6 +8,16 @@
     font-size: 30px;
 }
 
+#caricacondensatore{
+  border: 0px solid;
+  float: left;
+
+}
+#bilancioenergetico{
+  border: 0px dashed;
+  float: left;
+
+}
 .subContainer{
     margin-left: 1%;
     margin-right: 1%;
