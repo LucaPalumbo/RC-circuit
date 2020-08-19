@@ -28,8 +28,8 @@
         </div>
 
         <!-- CONTENT SECTION -->
-        <button class="tablink" onclick="openPage('circuitiRC', this)" id="defaultOpen">Circuiti RC</button>
-        <button class="tablink" onclick="openPage('News', this)">News</button>
+        <button class="tablink" onclick="openPage('circuitiRC', this)" id="defaultOpen">Teoria</button>
+        <button class="tablink" onclick="openPage('Arduino', this)">Arduino</button>
         <button class="tablink" onclick="openPage('Contact', this)">Contact</button>
         <button class="tablink" onclick="openPage('About', this)">About</button>
 
@@ -186,22 +186,76 @@
             <div id="bilancioenergetico">
               <h3>Bilancio Energetico</h3>
               <div class="p1">
-                A carica completata, il bilancio energetico impone che
-                l'energia erogata dalla batteria durante la carica $\Delta U_B$
-                sia uguale all'energia immagazzinata dal condensatore $\Delta U_C$
-                pi&ugrave; quella $\Delta U_R$ dissipata sul resistore $R$<br/>
+                <p>A carica completata, il bilancio energetico impone che
+                l'<b>energia erogata dalla batteria</b> durante la carica $\Delta U_B$
+                sia uguale all'<b>energia immagazzinata dal condensatore</b> $\Delta U_C$
+                pi&ugrave; quella $\Delta U_R$ <b>dissipata sul resistore</b> $R$<br/>
+                Verifichiamo questo assunto:</p>
                 L’energia erogata dalla batteria è data dal prodotto della carica circolata nel
                 circuito per la $fem$ della batteria; la carica $q$ circolata nel circuito durante il
                 processo è ovviamente la stessa accumulata sui piatti del condensatore:
+                $$ \Delta U_B = q\,fem = Cfem^2 $$
+                $$ \Delta U_C  = \frac{1}{2}Cfem^2 $$
+                $$ q = Cfem $$
+                Dalla legge di Joule calcoliamo l'energia dissipata sul resistore:
+                $$ P = i^2R = \frac{dU_R}{dt}$$
+                $$
+                 \Delta U_R = \int_0^\infty{i^2(t)R\,dt} = \frac{fem^2}{R}\int_0^\infty{e^{-2/\tau}\,dt}
+                  = \frac{fem^2}{R}\frac{\tau}{2} = \frac{1}{2}Cfem^2
+                $$
+                $$ \Delta U_B = \Delta U_C + \Delta U_R$$
               </div>
+            </div>
+            <div id="scaricacondensatore">
+              <h3>Scarica Condensatore</h3>
 
+              <div class="box1">
+                <img class="imgTeoria" src="./img/circuitoRCscarica.png" alt="circuitiRCscarica.png">
+                <div class="p1">
+                  <br/>
+                  <p>Partiamo dal condensatore carico, con
+                  carica iniziale $ q_0 = Cfem $ </p>
+                  Chiudiamo il circuito in modo che il condensatore scarichi
+                  la sua energia sul resistore $R$; ipotizziamo il verso della
+                  corrente in figura; la $2°$ legge di Kichoff d&aacute;:
+                </div>
+              </div>
+              <div class="box1">
+                $$ (V_b-V_c)+(V_c-V_b) = 0 $$
+                $$ iR+ \Delta V_C = 0 $$
+                $$ \frac{dq(t)}{dt}R + \frac{q(t)}{C} = 0 $$
+              </div>
+              <div class="p1">Si dimostra che la soluzione dell’equazione differenziale è:</div>
+              $$q(t) = q_0 e^{-t/\tau} $$
+              $$ i(t) = \frac{dq}{dt} = - \frac{q_0}{\tau} e^{-t/\tau} $$
 
             </div>
         </div>
+      </div>
 
-        <div id="News" class="tabcontent">
-            <h3>News</h3>
-            <p>Some news this fine day!</p>
+        <div id="Arduino" class="tabcontent">
+          <div class='subContainer'>
+            <h2 class='subTitle'>Verifica sperimentale con arduino</h2>
+            <div class="sidenav">
+                <div>Indice:</div>
+                <a href="#raccoltadati">Raccolta dati con Arduino</a>
+                <a href="#root">Analisi dati con root</a>
+                <a href="#python">Analisi dati con python</a>
+            </div>
+            <div class="p1">
+              &Egrave; possibile verificare sperimentalmente ci&ograve; che abbiamo imparato
+              nella sezione teoria utilizzando un microcontrollore e assemblando un circuito RC.<br/>
+              Necessario:
+              <ul>
+                <li><a href="https://store.arduino.cc/arduino-uno-rev3"  target=”_blank”>Arduino</a></li>
+                <li><a href="https://it.rs-online.com/web/c/passivi/condensatori/condensatori-elettrolitici/"  target=”_blank”>Condensatore</a></li>
+                <li><a href="https://it.rs-online.com/web/c/passivi/resistori/"  target=”_blank”>Resistore </a> </li>
+
+              </ul>
+            </div>
+          </div>
+
+
         </div>
 
         <div id="Contact" class="tabcontent">
@@ -219,7 +273,7 @@
 
         <!-- SCRIPT SECTION -->
         <script>
-            function openPage(pageName,elmnt,color) {
+            function openPage(pageName,elmnt) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {

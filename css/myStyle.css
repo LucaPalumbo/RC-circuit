@@ -11,10 +11,12 @@
 #caricacondensatore{
   border: 0px solid;
   float: left;
-
 }
 #bilancioenergetico{
   border: 0px dashed;
+  float: left;
+}
+#scaricacondensatore{
   float: left;
 
 }
@@ -58,6 +60,12 @@
 .box{
   border: 0px dotted;
   margin-bottom: 325px;
+}
+.box1{
+  width: 100%;
+  float: left;
+  border: 0px dotted;
+  /*margin-bottom: 325px;*/
 }
 
 #fasi li{
@@ -113,6 +121,14 @@ body, html {
 
 
 
-#News {background-color: white;}
+#Arduino {
+  background-color: white;
+  margin: auto;
+  width: 950px;
+  overflow: auto;
+  border-style: dotted;
+  padding: 10px;
+  margin-top: 3%;
+}
 #Contact {background-color: white;}
 #About {background-color: white;}
