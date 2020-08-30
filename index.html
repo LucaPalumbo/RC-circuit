@@ -4,6 +4,10 @@
         <link rel = "stylesheet" type = "text/css" href = "./css/myStyle.css" />
         <link rel = "stylesheet" type = "text/css" href = "./css/collapsible.css" />
         <link rel = "stylesheet" type = "text/css" href = "./css/sidenav.css" />
+        <link rel = "stylesheet" type = "text/css" href = "./css/arduino.css" />
+        <link rel = "stylesheet" type = "text/css" href = "./css/code.css" />
+        <link rel = "stylesheet" type = "text/css" href = "./css/tooltip.css" />
+
         <title>Circuiti RC</title>
     </head>
     <body>
@@ -250,8 +254,112 @@
                 <li><a href="https://store.arduino.cc/arduino-uno-rev3"  target=”_blank”>Arduino</a></li>
                 <li><a href="https://it.rs-online.com/web/c/passivi/condensatori/condensatori-elettrolitici/"  target=”_blank”>Condensatore</a></li>
                 <li><a href="https://it.rs-online.com/web/c/passivi/resistori/"  target=”_blank”>Resistore </a> </li>
-
               </ul>
+            </div>
+            <div id="raccoltadati">
+              <h3>Raccolta dati con Arduino</h3>
+              <div class="p1">
+                Utilizziamo il nostro arduino per costruire un circuito RC che somigli a questo.
+                <div class="tooltip">
+                  <a href="https://ludusrusso.cc/2017/02/21/un-laboratorio-di-fisica-con-python-e-arduino-circuito-rc-v2/">
+                    <img src="./img/circuitoarduino.PNG" alt="arduino" class="arduinoimg" width="100%">
+                    <span class="tooltiptext">Immagine da: https://ludusrusso.cc/</span>
+                  </a>
+                </div>
+                Io utilizzer&ograve; un resistore da $ 1\cdot 10^{-6} \Omega$ e un condensatore con capacità $ 1 \cdot 10^6 F $ <br/>
+                A questo punto non ci resta che scaricare l'IDE di Arduino, scrivere il codice, collegare
+                il microcontrollore al computer ed eseguire il programma. <br/>
+                Ecco un esempio di codice arduino per raccogliere dati:
+                <pre>
+                <code>
+int tau;
+int R;
+
+int experiment_counter;
+void setup() {
+  // put your setup code here, to run once:
+  tau = 1; // tau = 1 second
+  R = 1e6; // R = 1e6 ohm
+  experiment_counter = 0;
+  int bps = 9600; // velocità, espressa in bps (boud rate per secondo).
+  Serial.begin(bps);
+  pinMode(2,OUTPUT); // set pin mode of second pin to OUTPUT
+  discharge();
+
+}
+
+void charge(){
+  digitalWrite(2, HIGH); //// turn ON battery
+  Serial.print("Experiment n. ");
+  Serial.print(experiment_counter);
+  Serial.print("\n");
+  unsigned long startChargingTime = millis();
+  unsigned long chargeTime = startChargingTime;
+  int seconds = 6;
+  while(chargeTime < startChargingTime+seconds*1000){
+     int sensorValue = analogRead(A0); //read tension
+     float voltage = sensorValue * (5.0 / 1023.0); // Convert the analog reading (which goes from 0 – 1023) to a voltage (0 – 5V)
+     chargeTime = millis(); //get current time
+     Serial.print(chargeTime-startChargingTime); // print charging time
+     Serial.print(" ");
+     Serial.print(voltage); //print voltage
+     Serial.print("\n");
+     delay(100); //wait 100ms
+  }
+
+}
+
+void discharge(){
+  digitalWrite(2, LOW); // turn OFF battery
+  int seconds = 6;
+  Serial.println("Discharging...");
+  unsigned long startDischargingTime = millis();
+  unsigned long dischargeTime = startDischargingTime;
+  while(dischargeTime < startDischargingTime+seconds){
+    int sensorValue = analogRead(A0); //read tension
+    float voltage = sensorValue * (5.0 / 1023.0); // Convert the analog reading (which goes from 0 – 1023) to a voltage (0 – 5V)
+    dischargeTime = millis();
+    Serial.print(dischargeTime-startDischargingTime); // print charging time
+     Serial.print(" ");
+     Serial.print(voltage); //print voltage
+     Serial.print("\n");
+     delay(100); //wait 100ms
+  }
+
+}
+
+void stop(){
+  Serial.println("Stopping sketch");
+  while(1);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  charge();
+  discharge();
+  experiment_counter++;
+  if(experiment_counter==50){
+    stop();
+  }
+}
+  /*
+
+
+  //Serial.print("testo");
+  timePassed = millis(); //get the time passsed since the Arduino board began running
+  digitalWrite(2, HIGH);
+  int sensorValue = analogRead(A0); //read tension
+  float voltage = sensorValue * (5.0 / 1023.0); // Convert the analog reading (which goes from 0 – 1023) to a voltage (0 – 5V)
+  Serial.println(voltage);
+  */
+
+
+                </code>
+              </pre>
+              <form method="get" action="./code/raccoltadati.ino">
+                    <button class="button" type="submit">Download sketch!</button>
+              </form>
+              </div>
             </div>
           </div>
 
