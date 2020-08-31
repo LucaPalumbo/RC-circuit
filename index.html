@@ -271,8 +271,7 @@
                 il microcontrollore al computer ed eseguire il programma. <br/>
                 Ecco un esempio di codice arduino per raccogliere dati:
                 <pre>
-                <code>
-int tau;
+                <code>int tau;
 int R;
 
 int experiment_counter;
@@ -284,7 +283,10 @@ void setup() {
   int bps = 9600; // velocità, espressa in bps (boud rate per secondo).
   Serial.begin(bps);
   pinMode(2,OUTPUT); // set pin mode of second pin to OUTPUT
-  discharge();
+
+  //make sure there is no tension in the capacitor at the beginning of experiment
+  digitalWrite(2, LOW); // turn OFF battery
+  delay(6*1000); // wait 6 seconds
 
 }
 
@@ -315,7 +317,7 @@ void discharge(){
   Serial.println("Discharging...");
   unsigned long startDischargingTime = millis();
   unsigned long dischargeTime = startDischargingTime;
-  while(dischargeTime < startDischargingTime+seconds){
+  while(dischargeTime < startDischargingTime+seconds*1000){
     int sensorValue = analogRead(A0); //read tension
     float voltage = sensorValue * (5.0 / 1023.0); // Convert the analog reading (which goes from 0 – 1023) to a voltage (0 – 5V)
     dischargeTime = millis();
@@ -342,23 +344,20 @@ void loop() {
     stop();
   }
 }
-  /*
-
-
-  //Serial.print("testo");
-  timePassed = millis(); //get the time passsed since the Arduino board began running
-  digitalWrite(2, HIGH);
-  int sensorValue = analogRead(A0); //read tension
-  float voltage = sensorValue * (5.0 / 1023.0); // Convert the analog reading (which goes from 0 – 1023) to a voltage (0 – 5V)
-  Serial.println(voltage);
-  */
 
 
                 </code>
               </pre>
-              <form method="get" action="./code/raccoltadati.ino">
-                    <button class="button" type="submit">Download sketch!</button>
-              </form>
+              <div>
+
+                <form method="get" action="./code/raccoltadati.ino" class="buttonBox">
+                      <button class="button" type="submit">Download sketch!</button>
+                </form>
+                <form method="get" action="./code/capacitor_data.txt" class="buttonBox">
+                      <button class="button" type="submit">Download dati raccolti</button>
+                </form>
+              </div>
+
               </div>
             </div>
           </div>
