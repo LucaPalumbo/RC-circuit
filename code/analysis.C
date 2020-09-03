@@ -4,7 +4,6 @@
 
 #define N_DATA 61 // data gathered during charging/discharging
 #define N_EXPERIMENTS 50 // numbers of time the experiment was repeted
-#define DEBUG std::cout<<"DEBUG"<<std::endl;
 
 struct CapacitorData // structure containing data to be plotted
 {
@@ -69,5 +68,8 @@ void analysis() {
     graphFromData->Draw();  // draw graph of charging
     TF1 *expectedGraph = new TF1("expectedGraph","5*(1-e^(-x/1))",0,6);
     expectedGraph->Draw("same"); //draw expected graph
-   
+    TLegend *legend = new TLegend(.1,.7,.3,.9);     //adding legend
+    legend->AddEntry(graphFromData,"d.d.p over time","l");
+    legend->AddEntry(expectedGraph,"Expected result","l");
+    legend->Draw();
 }
