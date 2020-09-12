@@ -7,6 +7,8 @@
         <link rel = "stylesheet" type = "text/css" href = "./css/arduino.css" />
         <link rel = "stylesheet" type = "text/css" href = "./css/code.css" />
         <link rel = "stylesheet" type = "text/css" href = "./css/tooltip.css" />
+        <link rel = "stylesheet" type = "text/css" href = "./css/smoothscroll.css" />
+
 
         <title>Circuiti RC</title>
     </head>
@@ -274,7 +276,7 @@
                 <code>int tau;
 int R;
 
-<span style="color: blue;">int</span> experiment_counter;
+int experiment_counter;
 void setup() {
   // put your setup code here, to run once:
   tau = 1; // tau = 1 second
@@ -344,8 +346,6 @@ void loop() {
     stop();
   }
 }
-
-
                 </code>
               </pre>
               <div>
@@ -359,6 +359,93 @@ void loop() {
               </div>
 
               </div>
+            </div>
+            <div id="root">
+              <h3>Analisi dati con Root</h3>
+              <h4>Cosa è root?</h4>
+              <div class="p1">
+                ROOT è un framework per l'elaborazione dati, nato al CERN, al centro della ricerca sulla fisica delle alte energie. Ogni giorno, migliaia di fisici utilizzano applicazioni ROOT per analizzare i propri dati o per eseguire simulazioni.
+              </div>
+              <div class="tooltip">
+                <a href="https://root.cern/">
+                  <img src="./img/rootlogo.png" alt="root" class="arduinoimg" width="100%">
+                  <span class="tooltiptext">www.root.cern/</span>
+                </a>
+              </div>
+              <h4>Codice e grafico</h4>
+              <div class="p1">
+                Ecco un esempio di codice C++ utilizzando root framework per analizzare i dati precedentemente raccolti e disegnare il relativo grafico.
+              <pre>
+                <code>#include < iostream >
+#include < fstream >
+#include < string >
+
+#define N_DATA 61 // data gathered during charging/discharging
+#define N_EXPERIMENTS 50 // numbers of time the experiment wasrepeted
+
+struct CapacitorData // structure containing data to be plotted
+{
+    Double_t avg_voltages[N_DATA]; // Y axis
+    Double_t avg_times[N_DATA]; // X axis
+    int experiment_counter = 0;
+};
+
+void readData(std::ifstream &f,CapacitorData &c){
+    Double_t time, voltage;
+    std::string line;
+    for(int i=0;i< N_DATA; i++){
+        std::getline(f, line);
+        std::istringstream iss(line);
+        iss >> time >> voltage;
+        c.avg_times[i] = ((c.avg_times[i]*c.experiment_counter) + time/1000)/(c.experiment_counter+1);
+        c.avg_voltages[i] = ((c.avg_voltages[i]*c.experiment_counter)+ voltage)/(c.experiment_counter+1);
+    }
+    c.experiment_counter++;
+}
+void readFile(string fileName, CapacitorData &c, CapacitorData &d){    
+    std::ifstream dataFile;
+    string line;
+    dataFile.open(fileName);
+    if(!dataFile){
+        std::cerr<< "Unable to open file: "<< fileName << std::endl;
+        exit(1);    
+    }
+    for(int i=0;i < 2; i++){
+        std::getline(dataFile, line); // read "Experiment n. #"
+        readData(dataFile, c);
+        std::getline(dataFile, line); // read "Discharging..."
+        readData(dataFile, d);    
+    }   
+}
+
+void analysis() {
+    CapacitorData charging;
+    CapacitorData discharging;
+    readFile("capacitor_data.txt", charging, discharging); // read data and fill charging/discharging structures
+    TCanvas *c = new TCanvas("c", "Capacitor D.D.P. over time", 200, 200, 950,700); // create canvas
+    TGraph *graphFromData = new TGraph(N_DATA,charging.avg_times,charging.avg_voltages);
+    graphFromData->Draw();  // draw graph of charging
+    TF1 *expectedGraph = new TF1("expectedGraph","5*(1-e^(-x/1))",0,6);
+    expectedGraph->Draw("same"); //draw expected graph
+    TLegend *legend = new TLegend(.1,.7,.3,.9);     //adding legend
+    legend->AddEntry(graphFromData,"d.d.p over time","l");
+    legend->AddEntry(expectedGraph,"Expected result","l");
+    legend->Draw();
+    graphFromData->GetYaxis()->SetTitle("D.D.P. [V]"); // set axis name
+    graphFromData->GetXaxis()->SetTitle("Time [s]"); // set axis name}
+}
+                </code>
+              </pre>
+              <img src="./img/rootgraph.png" alt="rootgraph" class="arduinoimg" width="100%">
+              
+              <form method="get" action="./code/analysis.C" class="buttonBox">
+                <button class="button" type="submit">Download macro!</button>
+              </form>
+              <form method="get" action="./img/rootgraph.png" class="buttonBox">
+                    <button class="button" type="submit">Download grafico!</button>
+              </form>
+            </div>
+
             </div>
           </div>
 
