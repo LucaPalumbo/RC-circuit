@@ -1,0 +1,19 @@
+.an:link {
+    color: white;
+    text-decoration: none;
+  }
+  
+  /* visited link */
+.an:visited {
+  color: white;
+}
+
+/* mouse over link */
+.an:hover {
+  color: lightblue;
+}
+
+/* selected link */
+.an:active {
+  color: greenyellow;
+}
