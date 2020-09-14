@@ -9,6 +9,7 @@
         <link rel = "stylesheet" type = "text/css" href = "./css/tooltip.css" />
         <link rel = "stylesheet" type = "text/css" href = "./css/smoothscroll.css" />
         <link rel = "stylesheet" type = "text/css" href = "./css/anchor.css" />
+        <link rel = "stylesheet" type = "text/css" href = "./css/footer.css" />
 
 
 
@@ -38,8 +39,7 @@
         <!-- CONTENT SECTION -->
         <button class="tablink" onclick="openPage('circuitiRC', this)" id="defaultOpen">Teoria</button>
         <button class="tablink" onclick="openPage('Arduino', this)">Arduino</button>
-        <button class="tablink" onclick="openPage('Contact', this)">Contact</button>
-        <button class="tablink" onclick="openPage('About', this)">About</button>
+        <button class="tablink" onclick="openPage('Esercizi', this)">Esercizi</button>
 
         <div id="circuitiRC" class="tabcontent" >
             <div class='subContainer'>
@@ -54,7 +54,7 @@
                     <a href="#bilancioenergetico">Bilancio energetico</a>
                 </div>
                 <div id="cosasono">
-                    <h3>Cosa sono?</h3>
+                    <h3 style="text-shadow: 2px 2px 5px rgb(38, 209, 201);" >Cosa sono?</h3>
                     <img class="imgTeoria" src="./img/circuitoRC.png" alt="circuito RC" >
                     <p class="p1">
                         Fino ad ora abbiamo utilizzato circuiti in condizioni
@@ -98,7 +98,7 @@
                 <br/>
                 <hr width="400px"/>
                 <div id="caricacondensatore">
-                    <h3>Processo di carica del condensatore</h3>
+                    <h3 style="text-shadow: 2px 2px 5px rgb(38, 209, 201);" >Processo di carica del condensatore</h3>
                     <img class="imgTeoria" src="./img/circuitoRC2.png" alt="circuito RC in carica">
                     <div class="p1">
                         In ogni istante del processo di carica, come nel caso statico
@@ -191,8 +191,11 @@
 
 
             </div>
+
             <div id="bilancioenergetico">
-              <h3>Bilancio Energetico</h3>
+              <br/>
+              <hr width="400px"/>
+              <h3 style="text-shadow: 2px 2px 5px rgb(38, 209, 201);" >Bilancio Energetico</h3>
               <div class="p1">
                 <p>A carica completata, il bilancio energetico impone che
                 l'<b>energia erogata dalla batteria</b> durante la carica $\Delta U_B$
@@ -214,8 +217,12 @@
                 $$ \Delta U_B = \Delta U_C + \Delta U_R$$
               </div>
             </div>
+            
             <div id="scaricacondensatore">
-              <h3>Scarica Condensatore</h3>
+              <br/>
+              <hr width="400px"/>
+
+              <h3 style="text-shadow: 2px 2px 5px rgb(38, 209, 201);" >Scarica Condensatore</h3>
 
               <div class="box1">
                 <img class="imgTeoria" src="./img/circuitoRCscarica.png" alt="circuitiRCscarica.png">
@@ -261,7 +268,7 @@
               </ul>
             </div>
             <div id="raccoltadati">
-              <h3>Raccolta dati con Arduino</h3>
+              <h3 style="text-shadow: 2px 2px 5px rgb(38, 209, 201);">Raccolta dati con Arduino</h3>
               <div class="p1">
                 Utilizziamo il nostro arduino per costruire un circuito RC che somigli a questo.
                 <div class="tooltip">
@@ -363,7 +370,7 @@ void loop() {
               </div>
             </div>
             <div id="root">
-              <h3>Analisi dati con Root</h3>
+              <h3 style="text-shadow: 2px 2px 5px rgb(38, 209, 201);" >Analisi dati con Root</h3>
               <h4>Cosa è root?</h4>
               <div class="p1">
                 ROOT è un framework per l'elaborazione dati, nato al CERN, al centro della ricerca sulla fisica delle alte energie. Ogni giorno, migliaia di fisici utilizzano applicazioni ROOT per analizzare i propri dati o per eseguire simulazioni.
@@ -449,19 +456,112 @@ void analysis() {
             </div>
 
             </div>
+            <div id="python">
+              <h3 style="text-shadow: 2px 2px 5px rgb(38, 209, 201);" >Analisi dati con python</h3>
+              <div class="tooltip">
+                <a href="https://www.python.org/">
+                  <img src="./img/py.png" alt="python" class="arduinoimg" width="100%">
+                  <span class="tooltiptext">www.python.org/</span>
+                </a>
+              </div>
+              <p class="p1">
+                Possiamo scrivere lo stesso codice utilizzando un altro linguaggio di programmazione: Python. 
+                Ci serviremo di uno dei moduli più famosi di python per disegnare grafici, matplotlib.
+                Vediamo il codice:
+                <pre>
+                  <code>#!/usr/bin/env python
+import matplotlib.pyplot as plt
+import numpy as np
+import math 
+
+#usefull data
+N_DATA = 61
+N_EXPERIMENTS = 50
+
+def readData(f,d):
+    # function that read data and calculate the mean value at same time
+    for data in range(N_DATA):
+        lineData = [ float(_) for _ in f.readline().split() ]
+        d['avg_time'][data] = ((d['avg_time'][data]*d['counter'])+lineData[0]/1000) / (d['counter']+1)
+        d['avg_voltages'][data] = ((d['avg_voltages'][data]*d['counter'])+lineData[1]) / (d['counter']+1)
+    d['counter']+=1    
+
+def readFile(filename,cd,dd):
+    with open(filename,'r') as file:
+        for experiment in range(N_EXPERIMENTS):
+            file.readline() # read "Experiment n.#"
+            readData(file, cd) # read charging data
+            file.readline() # read "discharging..."
+            readData(file, dd) # read discharging data
+
+def ddp(t):
+    #mathematical function 
+    fem = 5
+    C = 1e-6
+    R = 1e6
+    return fem*(1-pow(math.e,-t/(C*R)))
+    
+def plot(data):
+    fig = plt.figure()
+    t = np.linspace(0.,6.,61)
+    plt.plot(t,ddp(t), label="Expected result", color="orange")
+    plt.ylabel('D.D.P [V]')
+    plt.xlabel('Time [s]')
+    fig.suptitle('D.D.P. condensatore su tempo')
+    plt.scatter(data['avg_time'], data['avg_voltages'], label='Dati raccolti', marker = '.')
+    plt.legend(loc = 'upper left')
+    plt.show()
+
+def main():
+    #definition of data structure
+    chargingData = {'avg_voltages': [0]*N_DATA, 'avg_time': [0]*N_DATA, 'counter': 0 }
+    dischargingData = {'avg_voltages': [0]*N_DATA, 'avg_time': [0]*N_DATA, 'counter': 0 }
+    readFile("capacitor_data.txt",chargingData, dischargingData) #read data
+    plot(chargingData) #plot things
+    
+# main function implementation 
+if __name__ == '__main__':
+    main()
+                </code>
+              </pre>
+            </p>
+            <form method="get" action="./code/analysis.py" class="buttonBox">
+              <button class="button" type="submit">Download script!</button>
+            </form>
+            <form method="get" action="./img/pythongraph.png" class="buttonBox">
+                  <button class="button" type="submit">Download grafico!</button>
+            </form>
+
+            </div>
           </div>
 
 
         </div>
 
-        <div id="Contact" class="tabcontent">
-            <h3>Contact</h3>
+        <div id="Esercizi" class="tabcontent">
+            <h3>Esercizi</h3>
             <p>Get in touch, or swing by for a cup of coffee.</p>
+            <p> TODO : issue open on github</p>
         </div>
 
-        <div id="About" class="tabcontent">
-            <h3>About</h3>
-            <p>Who we are and what we do.</p>
+        
+
+
+        <!-- FOOTER -->
+        <div id="footer">
+          <ul>
+            <li>
+              Autore: Luca Palumbo<br>
+              <a href="mailto:luca183.palumbo@gmail.com">luca183.palumbo@gmail.com</a>
+            </li>
+            <li>
+              Scuola: <a href="http://istitutolorenzinipescia.edu.it/">Liceo C. Lorenzini</a>
+            </li>
+            <li>
+              Lezioni ed esercizi tratti da un PDF del professor Tonelli, UniPi<br/>
+              <a href="http://www2.ing.unipi.it/~a004898/">Sito internet</a>, <a href="./lezioneCircuiti.pdf">PDF</a>
+            </li>
+          </ul>
         </div>
 
 
